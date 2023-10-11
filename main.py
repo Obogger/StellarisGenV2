@@ -82,7 +82,10 @@ def randomGeneratorOutput():
     stringToWrite.append(governmentClass)
     stringToWrite.append(governmentGen.governmentAuthority(ethics, governmentClass))
     stringToWrite.append(ethics)
-    stringToWrite.append(randomRaceGen.traitGenerator(traitNames, traitAllowedType, race, traitNotCopatible))
+    quality = randomRaceGen.qualityGenerator(race)
+    stringToWrite.append(quality)
+    stringToWrite.append(randomRaceGen.traitGenerator(traitNames, traitAllowedType, race, traitNotCopatible, quality))
+    
     if len(label) == 0:
         for i in range(len(stringToWrite)):
             label.append(tk.Label(window, text="", font=('Arial', 16), width=25))

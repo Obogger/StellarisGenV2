@@ -14,7 +14,7 @@ def raceTypeGenerator(raceReslut):
     raceTypeResult = random.randint(1, raceAmount)
     return raceTypeResult
 
-def traitGenerator(traitNames, traitRace, race, traitOppsite):
+def traitGenerator(traitNames, traitRace, race, traitOppsite, quality):
     traitOppsiteClone = traitOppsite.copy()
     traitNamesClone = traitNames.copy()
     traitRaceClone = traitRace.copy()
@@ -24,10 +24,16 @@ def traitGenerator(traitNames, traitRace, race, traitOppsite):
             if "LITHOID" not in traitRaceClone[i]:
                 traitNamesClone[i] = ""
                 traitRaceClone[i] = ""
-    if race == "Machine":
+    elif race == "Machine":
         print("IS Machine")
         for i in range(len(traitNamesClone)):
             if "ROBOT" not in traitRaceClone[i] and "MACHINE" not in traitRaceClone[i]:
+                traitNamesClone[i] = ""
+                traitRaceClone[i] = ""
+    else:
+        print("IS Nomral")
+        for i in range(len(traitNamesClone)):
+            if "BIOLOGICAL" not in traitRaceClone[i]:
                 traitNamesClone[i] = ""
                 traitRaceClone[i] = ""
     listLenght = len(traitNamesClone)
@@ -38,8 +44,24 @@ def traitGenerator(traitNames, traitRace, race, traitOppsite):
             print("Delted someshit")
             traitNamesClone.remove("")
             traitRaceClone.remove("")
-    print(traitNamesClone)
-    return traitNamesClone
+    randomTraits = []
+    result = ""
+    for i in range(5):
+        currentTrait = random.randint(0,len(traitNamesClone) - 1)
+        randomTraits.append(traitNamesClone[currentTrait])
+        traitNamesClone.pop(currentTrait)
+    for i in range(len(randomTraits)):
+        result = result + randomTraits[i] + "\n"
+    print(result, randomTraits)  
+    return result
 
 def qualityGenerator(race):
-    return
+    qualityText = ["Failure", "Incapable", "Inferior", "Normal", "Superior", "Gifted", "Perfect"]
+    qualityTextMachine = ["Scrap","Normal","Excellent"]
+    
+    if race == "Machine":
+        quality = random.choices(qualityTextMachine, weights=[15, 80, 15])
+    else:
+        quality = random.choices(qualityText, weights=[5, 5, 10, 60, 10, 5, 5])
+        
+    return quality

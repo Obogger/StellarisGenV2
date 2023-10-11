@@ -32,8 +32,7 @@ def governmentEthicsGen(raceType):
         governmentClass = "AI"
     elif hiveType:
         gestaltType = True
-        governmentClass = "Hivemind"       
-        
+        governmentClass = "Hivemind"         
     else:
         gestaltType = False
         governmentClass = "Normal"
@@ -71,7 +70,7 @@ def governmentEthicsGen(raceType):
     ethicsResult = ""
     print(ethicsPreResult)
     for i in ethicsPreResult:
-        ethicsResult += i + "\n"
+        ethicsResult += i + " "
     return ethicsResult, governmentClass
 
 def governmentAuthority(currentEthics, currentGovernmentClass):
@@ -102,5 +101,10 @@ def governmentAuthority(currentEthics, currentGovernmentClass):
             if "Fanatic Authoritarian" in currentEthics or "Fanatic Libetarian" in currentEthics:
                 avalableAthority.remove("Oligarchic")
         print(avalableAthority)
-        autority = avalableAthority[random.randint(0, (len(avalableAthority) - 1))]
+        try:
+            autority = avalableAthority[random.randint(0, (len(avalableAthority) - 1))]
+        except:
+            print("No avalable autority")
+            autority = "ERROR"
+    
     return autority
