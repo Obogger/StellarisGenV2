@@ -1,5 +1,5 @@
 import random
-
+import time
 fanaticEthics = [["Fanatic Authoritarian", "Fanatic Libetarian"], 
                  ["Fanatic Xenophobe", "Fanatic Xenophile"], 
                  ["Fanatic Militarist", "Fanatic Pacifist"],
@@ -68,7 +68,6 @@ def governmentEthicsGen(raceType):
             fanaticEthicsClone.pop(ethicGroup)
     
     ethicsResult = ""
-    print(ethicsPreResult)
     for i in ethicsPreResult:
         ethicsResult += i + "\n"
     return ethicsResult, governmentClass

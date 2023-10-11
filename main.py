@@ -83,7 +83,8 @@ def randomGeneratorOutput():
     quality = randomRaceGen.qualityGenerator(race)
     stringToWrite.append(quality)
     stringToWrite.append(randomRaceGen.traitGenerator(traitNames, traitAllowedType, race, traitNotCopatible, quality))
-    
+    stringToWrite.append(ethics)
+
     if len(label) == 0:
         for i in range(len(stringToWrite)):
             label.append(tk.Label(window, text="", font=('Arial', 16), width=25))
@@ -93,11 +94,8 @@ def randomGeneratorOutput():
             questionTextWidget.append(tk.Label(window, text=stringQuestionToWrite[i], font=('Arial', 16), width=15))
             questionTextWidget[i].place(relx=0.625,
                            rely=0.10 +(0.05 * i))
-    
-    stringToWrite.append(ethics)
-
-    label.append(tk.Label(window, text="", font=('Arial', 16), width=25))
-    label[len(label) - 1].place(relx=0.3,
+        label.append(tk.Label(window, text="", font=('Arial', 16), width=25))
+        label[len(label) - 1].place(relx=0.3,
                                 rely=0.3)
     for i in range(len(stringToWrite)):
         label[i].configure(text=stringToWrite[i])
