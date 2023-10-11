@@ -1,5 +1,4 @@
 import tkinter as tk
-import random 
 import randomRaceGen
 import worldGen
 import governmentGen
@@ -81,7 +80,6 @@ def randomGeneratorOutput():
     ethics, governmentClass = governmentGen.governmentEthicsGen(race)
     stringToWrite.append(governmentClass)
     stringToWrite.append(governmentGen.governmentAuthority(ethics, governmentClass))
-    stringToWrite.append(ethics)
     quality = randomRaceGen.qualityGenerator(race)
     stringToWrite.append(quality)
     stringToWrite.append(randomRaceGen.traitGenerator(traitNames, traitAllowedType, race, traitNotCopatible, quality))
@@ -96,6 +94,11 @@ def randomGeneratorOutput():
             questionTextWidget[i].place(relx=0.625,
                            rely=0.10 +(0.05 * i))
     
+    stringToWrite.append(ethics)
+
+    label.append(tk.Label(window, text="", font=('Arial', 16), width=25))
+    label[len(label) - 1].place(relx=0.3,
+                                rely=0.3)
     for i in range(len(stringToWrite)):
         label[i].configure(text=stringToWrite[i])
 

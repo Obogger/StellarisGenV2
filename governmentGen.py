@@ -70,7 +70,7 @@ def governmentEthicsGen(raceType):
     ethicsResult = ""
     print(ethicsPreResult)
     for i in ethicsPreResult:
-        ethicsResult += i + " "
+        ethicsResult += i + "\n"
     return ethicsResult, governmentClass
 
 def governmentAuthority(currentEthics, currentGovernmentClass):
