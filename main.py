@@ -1,12 +1,6 @@
 import tkinter as tk
-<<<<<<< Updated upstream
-import randomRaceGen
-import worldGen
-import governmentGen
-=======
 import random 
-import generation
->>>>>>> Stashed changes
+from generation import randomRaceGen,governmentGen,worldGen
 import os
 import json
 import re
