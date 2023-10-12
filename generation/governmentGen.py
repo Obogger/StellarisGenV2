@@ -24,19 +24,18 @@ outerRing = ["Progression", "Analysis",
 
 
 def governmentEthicsGen(raceType):
-    ethicsPreResult = []
-    hiveType = True if random.randint(0,9) == 5 else False
     gestaltType = False
+    governmentClass = "Normal"
+    
     if raceType == "Machine":
         gestaltType = True
         governmentClass = "AI"
-    elif hiveType:
+    elif random.randint(0, 9) == 5:
         gestaltType = True
         governmentClass = "Hivemind"         
-    else:
-        gestaltType = False
-        governmentClass = "Normal"
-    
+
+    ethicsPreResult = []
+
     if gestaltType:
         outerAmount = random.randint(0, 1)
         innerAmount = random.randint(2 - outerAmount, 3)
@@ -44,8 +43,9 @@ def governmentEthicsGen(raceType):
         innerRingClone = innerRing.copy()
         outerRingClone = outerRing.copy()
         
-        ethicsPreResult.append(outerRingClone[random.randint(0,(len(outerRingClone) - 1))]) if outerAmount == 1 else []
-        
+        if outerAmount == 1:
+            ethicsPreResult.append(random.choice(outerRingClone))
+            
         for i in range(innerAmount):
             group = random.randint(0, (len(innerRingClone) - 1))
             ethicsPreResult.append(innerRingClone[group][random.randint(0, 1)])
@@ -53,56 +53,56 @@ def governmentEthicsGen(raceType):
     else:
         fanaticEthicsClone = fanaticEthics.copy()
         ethicsClone = ethics.copy()
+        
         fanaticAmount = random.randint(0,2)
-        ethicMinimum = 0 if 3 - fanaticAmount*2 < 0 else 3 - fanaticAmount*2
-        ethicAmount = random.randint((ethicMinimum),5-(fanaticAmount*2))
+        ethicMinimum = max(0, 3 - fanaticAmount * 2)
+        ethicAmount = random.randint(ethicMinimum, 5 - fanaticAmount * 2)
         for i in range(fanaticAmount):
             ethicGroup = random.randint(0, (len(fanaticEthicsClone) - 1))
-            ethicsPreResult.append(fanaticEthicsClone[ethicGroup][random.randint(0,1)])
+            ethicsPreResult.append(random.choice(fanaticEthicsClone[ethicGroup]))
             fanaticEthicsClone.pop(ethicGroup)
             ethicsClone.pop(ethicGroup)
         for i in range(ethicAmount):
             ethicGroup = random.randint(0, (len(ethicsClone) - 1))
-            ethicsPreResult.append(ethicsClone[ethicGroup][random.randint(0,1)])
+            ethicsPreResult.append(random.choice(ethicsClone[ethicGroup]))
             ethicsClone.pop(ethicGroup)
             fanaticEthicsClone.pop(ethicGroup)
     
-    ethicsResult = ""
-    for i in ethicsPreResult:
-        ethicsResult += i + "\n"
-    return ethicsResult, governmentClass
+    return "\n".join(ethicsPreResult), governmentClass
 
 def governmentAuthority(currentEthics, currentGovernmentClass):
     autority = ""
-    avalableAthority = []
+    
     if currentGovernmentClass == "AI":
         autority = "Machine intelligence"
     elif currentGovernmentClass == "Hivemind":
         autority = "Hivemind"
     else:
-        company = True if random.randint(0,7) == 2 else False
+        company = random.randint(0,7) == 2
+        
         if company:
-            avalableAthority = ["Corporation"]
+            available_authorities = ["Corporation"]
             if "Libertarian" in currentEthics or "Cooperative" in currentEthics:
-                avalableAthority.append("Group Firm")
+                available_authorities.append("Group Firm")
             if "Authoritarian" in currentEthics or "Competitive" in currentEthics:
-                avalableAthority.append("Dynastic Enterprise")
+                available_authorities.append("Dynastic Enterprise")
             if "Fanatic Authoritarian" in currentEthics or "Fanatic Libetarian" in currentEthics:
-                avalableAthority.remove("Corporation")
+                available_authorities.remove("Corporation")
         else:
-            avalableAthority = ["Indirectly Democratic", "Oligarchic","Dictatorial"]
+            available_authorities = ["Indirectly Democratic", "Oligarchic","Dictatorial"]
             if "Libertarian" in currentEthics:
-                avalableAthority.append("Directly Democratic")
-                avalableAthority.remove("Dictatorial")
+                available_authorities.append("Directly Democratic")
+                available_authorities.remove("Dictatorial")
             if "Authoritarian" in currentEthics:
-                avalableAthority.append("Imperial")
-                avalableAthority.remove("Indirectly Democratic")
+                available_authorities.append("Imperial")
+                available_authorities.remove("Indirectly Democratic")
             if "Fanatic Authoritarian" in currentEthics or "Fanatic Libetarian" in currentEthics:
-                avalableAthority.remove("Oligarchic")
-        print(avalableAthority)
-        try:
-            autority = avalableAthority[random.randint(0, (len(avalableAthority) - 1))]
-        except:
+                available_authorities.remove("Oligarchic")
+        print(available_authorities)
+        
+        if available_authorities:
+            autority = random.choice(available_authorities)
+        else:
             print("No avalable autority")
             autority = "ERROR"
     

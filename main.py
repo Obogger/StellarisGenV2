@@ -62,10 +62,11 @@ traitAllowedType = []
 traitNotCopatible = []
 
 def stringCleanUp(stringToClean):
-    charactersToRemove = ["=", "{", " ", "}", "allowed_archetypes","\n","\t","PRESAPIENT"]
-    for x in range(len(charactersToRemove)):
-            stringToClean = stringToClean.replace(charactersToRemove[x], "")
-    return stringToClean
+    sub_strings = ["=", "{", " ", "}", "allowed_archetypes","\n","\t","PRESAPIENT"]
+    cleaned_string = stringToClean
+    for sub in sub_strings:
+            cleaned_string = cleaned_string.replace(sub, "")
+    return cleaned_string
 
 label = []
 questionTextWidget = []
