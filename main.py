@@ -1,18 +1,18 @@
 import tkinter as tk
 import random 
-import randomRaceGen
-import worldGen
-import governmentGen
+import generation
 import os
 import json
 import re
 
+# Create a tkinter window
 window = tk.Tk()
-
 window.geometry("1500x750")
 window.title("Stellaris GEN :)")
 
+#Define the widget resolution
 resulution = 1
+
 vanillaTraitsFile = open("D:/SteamLibrary/steamapps/common/Stellaris/common/traits/04_species_traits.txt")
 vanilaRoboticTraitsFile = open("D:/SteamLibrary/steamapps/common/Stellaris/common/traits/05_species_traits_robotic.txt")
 
@@ -50,19 +50,19 @@ os.system("pause")
 
 directory = "D:/SteamLibrary/steamapps/workshop/content/281990/1928831043/common/traits"
 
+# Loop through trait files and make a list of all lines
 for filename in os.listdir(directory):
-    file = os.path.join(directory, filename)
-    currentFile = open(file)
-    currentFileText = currentFile.readlines()
-    TraitLines += currentFileText
+    file_path = os.path.join(directory, filename)
+    with open(file_path, 'r') as current_file:
+        TraitLines.extend(current_file.readlines())
 
 originNames = []
 traitNames = []
 traitAllowedType = []
 traitNotCopatible = []
-charactersToRemove = ["=", "{", " ", "}", "allowed_archetypes","\n","\t","PRESAPIENT"]
 
 def stringCleanUp(stringToClean):
+    charactersToRemove = ["=", "{", " ", "}", "allowed_archetypes","\n","\t","PRESAPIENT"]
     for x in range(len(charactersToRemove)):
             stringToClean = stringToClean.replace(charactersToRemove[x], "")
     return stringToClean
